@@ -35,8 +35,8 @@ def contact():
     return render_template("contact.html")
 
 def send_email(from_name, from_addr, subject, msg):
-    to_name="Jovaun"
-    to_addr='jovaunrobinson@yahoo.com'
+    to_name=""
+    to_addr=''
     message = """From: {} <{}> 
     To: {} <{}> 
     Subject: {} 
@@ -44,8 +44,8 @@ def send_email(from_name, from_addr, subject, msg):
     """ 
     message_to_send = message.format(from_name, from_addr, to_name, to_addr, subject, msg) 
     # Credentials (if needed) 
-    username = 'robbiejov@gmail.com' 
-    password = 'tkequoddqjqlvxtj' 
+    username = '' 
+    password = '' 
     # The actual mail send 
     server = smtplib.SMTP('smtp.gmail.com:587') 
     server.starttls() 
