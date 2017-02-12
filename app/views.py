@@ -6,9 +6,10 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
+import smtplib 
 
-
+app.secret_key = 'key'
 ###
 # Routing for your application.
 ###
@@ -17,8 +18,41 @@ from flask import render_template, request, redirect, url_for
 def home():
     """Render website's home page."""
     return render_template('home.html')
+@app.route('/contact',methods=['GET','POST'])
+def contact():
+    """Render contact form"""
+    if request.method == 'POST':
+        from_name=request.form['from_name']
+        from_addr=request.form['from_addr']
+        subject=request.form['subject']
+        msg=request.form['msg']
+        if send_email(from_name, from_addr, subject, msg)==True:
+            flash("Message succesfully sent")
+            return redirect(url_for('home'))
+        else:
+            flash("Message unsuccesfully sent")
+            return redirect(url_for('home'))
+    return render_template("contact.html")
 
-
+def send_email(from_name, from_addr, subject, msg):
+    to_name="Jovaun"
+    to_addr='jovaunrobinson@yahoo.com'
+    message = """From: {} <{}> 
+    To: {} <{}> 
+    Subject: {} 
+    {} 
+    """ 
+    message_to_send = message.format(from_name, from_addr, to_name, to_addr, subject, msg) 
+    # Credentials (if needed) 
+    username = 'robbiejov@gmail.com' 
+    password = 'tkequoddqjqlvxtj' 
+    # The actual mail send 
+    server = smtplib.SMTP('smtp.gmail.com:587') 
+    server.starttls() 
+    server.login(username, password) 
+    server.sendmail(from_addr, to_addr, message_to_send) 
+    server.quit() 
+    return True
 @app.route('/about/')
 def about():
     """Render the website's about page."""

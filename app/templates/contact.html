@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+<h1 class="page-header">Contact Form</h1>
+<hr/>
+<p>Fill in this form to contact the site owners</p>
+<form action="/contact" method="POST">
+  <label for="from_name">Name</label><br/>
+  <p>Please Enter your Name</p>
+  <input  type="text" name="from_name" required /><br/>
+  <label for="from_addr">Email</label><br/>
+  <p>Please Enter your Email address</p>
+  <input type="email" name="from_addr" required/>
+  <br />
+  <br />
+  <label for="subject">Subject</label><br/>
+  <p>Please Enter the subject for your Message</p>
+  <input  type="text" name="subject" required />
+  <br />
+  <br/>
+  <label for="msg">Message</label><br/>
+  <p>Please Enter the Message you would like to send</p>
+  <input  type="text-box" name="msg" required/><br/><br/>
+  <input  type="submit" name="submit" value ="Send"/>
+  </form>
+{% endblock %}
